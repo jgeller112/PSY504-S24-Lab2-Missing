@@ -6,6 +6,7 @@ output:
     tufte_variant: "envisioned"
     highlight: github-dark
     fig_height: 10
+    fig_width: 14
     toc: true
     toc_depth: 1
 execute: 
@@ -20,11 +21,11 @@ engine: knitr
 
 -   If you are fitting a model, display the model output in a neatly formatted table. (The `gt` `tidy` and `kable` functions can help!). `Modelsummary` also looks good(https://vincentarelbundock.github.io/modelsummary/articles/modelsummary.html)
 
--   If you are creating a plot, use `ggplot` or `base`and make sure they are publication ready. That means there are clear labels for all axes, titles, etc.
+- If you are creating a plot, use `ggplot` or `base`and make sure they are publication ready. That means there are clear labels for all axes, titles, etc.
 
--   Commit and push your work to GitHub regularly, at least after each exercise. Write short and informative commit messages.
+- Commit and push your work to GitHub regularly, at least after each exercise. Write short and informative commit messages.
 
--   When you're done, we should be able to knit the final version of the QMD in your GitHub as a HTML.
+-  When you're done, we should be able to knit the final version of the QMD in your GitHub as a HTML.
 
 ```{r}
 #| message: false
@@ -43,6 +44,9 @@ library(modelsummary) # table output for models
 -   Load the `brandsma` data from the **mice** package. Execute `?brandsma` to get a sense of the variables and where the data come from. Then make a subset of the `brandsma` data that contains the four variables `pup`, `iqv`, `ses`, `lpr` and `lpo`. Name that subset `d`.
 
 ```{r}
+#| fig-width: 8
+#| fig-height: 12
+#| 
 
 ```
 
@@ -71,8 +75,7 @@ library(modelsummary) # table output for models
 
 > Make four dummy variables named `r_iqv` through `r_lpo`. \* Code `r_iqv` such that it is a zero when `is.na(iqv)` and a one when `iqv` has an observed value. In the same way, make `r_ses` be the missing data dummy for `ses`, and so on.
 
-
-> Save these four dummy variables in the `d` data set.
+> Save these four dummy variables in the `d` data set as `my_md_missing`
 
 ```{r}
 
@@ -85,6 +88,9 @@ library(modelsummary) # table output for models
 > Subset the `d` data so it only contains the `pup` identifiers and the four `r` dummy variables and call it `my_md_pattern`
 
 ```{r}
+#| 
+
+
 ```
 
 - Within the `count()` function, simultaneously count up the rows by all four of your `r` dummy variables. Also, make sure the results are sorted by setting `sort = TRUE`. If you're confused by this, take a look at the third example here (https://dplyr.tidyverse.org/reference/count.html).  You'll just be extending to four variables.
