@@ -13,12 +13,10 @@ execute:
   warning: false
 format: 
   html:
-    code-fold: true
+    code-fold: false
     code-overflow: wrap
 engine: knitr
 ---
-
-# Lab 2 - Missing Data
 
 -   If you are fitting a model, display the model output in a neatly formatted table. (The `gt` `tidy` and `kable` functions can help!). `Modelsummary` also looks good(https://vincentarelbundock.github.io/modelsummary/articles/modelsummary.html)
 
@@ -63,7 +61,8 @@ library(modelsummary) # table output for models
 ```
 
 > In a sentence or two, tell me how many cases showed the most popular pattern and describe to me what that pattern is.
->
+
+
 > Which variable had the largest number of missing observations?
 
 # 3. Missing data dummies
@@ -71,12 +70,11 @@ library(modelsummary) # table output for models
 -   All variables in `d` have missing observations, with the exception of `pup`, the participant id number. In lecture and in the text, we learned that we can make dummy variables to indicate whether we have missingness in a given column. So let's do that:
 
 > Make four dummy variables named `r_iqv` through `r_lpo`. \* Code `r_iqv` such that it is a zero when `is.na(iqv)` and a one when `iqv` has an observed value. In the same way, make `r_ses` be the missing data dummy for `ses`, and so on.
->
+
+
 > Save these four dummy variables in the `d` data set.
 
 ```{r}
-
-
 
 ```
 
@@ -84,14 +82,14 @@ library(modelsummary) # table output for models
 
 -   The `plot_pattern` function is very slick and easy to use. But you should also know how to use your data wrangling skills to perform such an analysis by hand. Follow along and I'll show you how.
 
-    > Subset the `d` data so it only contains the `pup` identifiers and the four `r` dummy variables and call it `my_md_pattern`
+> Subset the `d` data so it only contains the `pup` identifiers and the four `r` dummy variables and call it `my_md_pattern`
 
 ```{r}
 ```
 
-> Within the `count()` function, simultaneously count up the rows by all four of your `r` dummy variables. Also, make sure the results are sorted by setting `sort = TRUE`. If you're confused by this, take a look at the third example here (https://dplyr.tidyverse.org/reference/count.html), which counted by two variables. You'll just be extending to four variables.
+- Within the `count()` function, simultaneously count up the rows by all four of your `r` dummy variables. Also, make sure the results are sorted by setting `sort = TRUE`. If you're confused by this, take a look at the third example here (https://dplyr.tidyverse.org/reference/count.html).  You'll just be extending to four variables.
 
-Save the results as `my_md_pattern` and show the results.
+> Save the results as `my_md_pattern` and show the results.
 
 ```{r}
 
@@ -136,20 +134,15 @@ my_md_pattern %>%
 
 ```
 
-```{r}
-
-
-```
-
 > What can you conclude about missing data mechanisms?
 
 # 7. Simple impute
 
--   Okay, we're finally ready to impute. impute with the \`my_md_missing\` data set and save the results as `imp1`. If you get warning messages, worry but don't worry. We'll address those in the next section.
+> Okay, we're finally ready to impute. impute with the \`my_md_missing\` data set and save the results as `imp1`. If you get warning messages, worry but don't worry. We'll address those in the next section.
 
-    ```{r}
+```{r}
     m=5
-    ```
+```
 
 # 8. Inspect
 
@@ -157,17 +150,17 @@ my_md_pattern %>%
 
     > Use the `str()` function to get an overview of the contents in your `imp1` object.
 
-    ```{r}
+```{r}
 
-    ```
+```
 
     > You may have noticed there's a lot of stuff in there. Let's take a more focused look by executing `imp1$method`.
 
-    ```{r}
+```{r}
 
-    ```
+```
 
--   With the last two bullets in mind, notice how we used the `pup` variable in the imputation formulas. Since `pup` is just a participant id number, this is a really bad idea. We're injecting random noise into our data.
+-  With the last two bullets in mind, notice how we used the `pup` variable in the imputation formulas. Since `pup` is just a participant id number, this is a really bad idea. We're injecting random noise into our data.
 
 -   Also notice that we used all four `r` dummy variables in the imputation formulas and we even had imputation formulas for the dummy variables themselves. This is also a really bad idea. I know the definition of what a variable is is getting a little hazy, here. But hopefully you are building an intuition that the four `r` dummy variables are different in nature from the original variables they were based on.
 
@@ -179,16 +172,16 @@ my_md_pattern %>%
 
 -   In our data statement, just select the four variables we want to impute data for
 
-    ```{r}
+```{r}
 
 
-    ```
+```
 
 -   Add the setting `method = "pmm"`, which uses predictive mean matching. If you want you can set `method = "norm"` and it will use a Bayesian regression approach. There are lots of different methods (some machine learning ones as well). Look here for more methods: (https://stefvanbuuren.name/fimd/sec-modelform.html).
 
--   Also, to make the next exercise easier, set `m = 5`, which will result in 5 imputed data sets.
+-  Also, to make the next exercise easier, set `m = 5`, which will result in 5 imputed data sets.
 
--   Save the results as `imp2`
+> Save the results as `imp2`
 
 ```{r}
 
@@ -250,20 +243,18 @@ I know I haven't really asked you to do much, here. Just show the code I told yo
 
 # 14. Summarize the results from your multiple imputation regression model
 
--   Run the final model and save it as `pooled_fit`
+-  Run the final model and save it as `pooled_fit`
 
     ```{r}
 
     ```
 
--   Now execute `pooled_fit %>% str(max.level = 1)` to get a sense of what your `pooled_fit` object even is.
+-  Now execute `pooled_fit %>% str(max.level = 1)` to get a sense of what your `pooled_fit` object even is.
+```{r}
 
-    ```{r}
+```
 
-
-    ```
-
-Finally, execute `summary(pooled_fit, conf.int = TRUE)` to get your pooled summary. These are the summary results you'd report in a paper.
+> Finally, execute `summary(pooled_fit, conf.int = TRUE)` to get your pooled summary. These are the summary results you'd report in a paper.
 
 ```{r}
 
@@ -320,5 +311,6 @@ Finally, execute `summary(pooled_fit, conf.int = TRUE)` to get your pooled summa
 
 ```{r}
 
-
 ```
+
+# The End
